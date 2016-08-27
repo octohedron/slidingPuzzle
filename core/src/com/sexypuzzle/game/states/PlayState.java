@@ -21,6 +21,7 @@ public class PlayState extends State {
   private Tile clickedTile;
   private BitmapFont font;
   private Grid mainGrid;
+  private String playingText;
   private GameButton newGameButton;
   public PlayState(GSM gsm) { // default constructor
     super(gsm);
@@ -36,6 +37,8 @@ public class PlayState extends State {
     super(gsm);
     font = new BitmapFont();
     font.setColor(Color.WHITE);
+    font.getData().setScale(2, 2); // little smaller
+    playingText = "All puzzles can be solved!";
     newGameButton = new GameButton(0, 0, // starting at the bottom left
                                       Gdx.graphics.getWidth(), Gdx.graphics.getWidth() / 4, // heght
                                       "NEW GAME");
@@ -96,16 +99,12 @@ public class PlayState extends State {
         mainGrid.tileGrid[row][col].render(sb);
       }
     }
-//    newGameButton.draw(sb, 100f);
-    font.draw(sb, "ctx=" + (int) ctx +
-                      " cty=" + (int) cty +
-                      " sx=" + (int) sx +
-                      " sy=" + (int) sy +
-                      " cr=" + clickedRow +
-                      " cc=" + clickedCol +
-                      " ct=" + posOfClickedTile
-        , 0f, 20f);
+    sb.end();
+    sb.begin();
     newGameButton.render();
+    sb.end();
+    sb.begin();
+    font.draw(sb, playingText, 90, Grid.BOARD_HEIGHT * 1.5f);
     sb.end();
   }
 }

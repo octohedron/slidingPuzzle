@@ -58,7 +58,7 @@ public class GameButton extends Box {
     newGameBtn.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        System.out.println("Clicked");
+        System.out.println("Clicked the new game button");
         PlayState state = new PlayState(gsm, 1);
         gsm.set(state);
       }
