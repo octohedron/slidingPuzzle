@@ -20,30 +20,44 @@ public class PlayState extends State {
   private int clickedCol;
   private Tile clickedTile;
   private BitmapFont font;
-  private Grid mainGrid;
   private String playingText;
-  private GameButton newGameButton;
+  private Grid mainGrid;
+  private GameButton buttonStage;
+  public static int level;
   public PlayState(GSM gsm) { // default constructor
     super(gsm);
-    font = new BitmapFont();
+    /*font = new BitmapFont();
     font.setColor(Color.WHITE);
     newGameButton = new GameButton(0, Gdx.graphics.getHeight() - 260, // starting at the top left
                                       Gdx.graphics.getWidth(), Gdx.graphics.getWidth() / 6,
                                       "NEW GAME");
     newGameButton.create(Content.maps[2], gsm);
-    mainGrid = new Grid(3, 3, Content.maps[1]);
+    mainGrid = new Grid(3, 3, Content.maps[1]);*/
   }
   public PlayState(GSM gsm, int level) {
     super(gsm);
+    PlayState.level = level;
     font = new BitmapFont();
     font.setColor(Color.WHITE);
-    font.getData().setScale(2, 2); // little smaller
+    font.getData().setScale(2, 2);
     playingText = "All puzzles can be solved!";
-    newGameButton = new GameButton(0, 0, // starting at the bottom left
-                                      Gdx.graphics.getWidth(), Gdx.graphics.getWidth() / 4, // heght
-                                      "NEW GAME");
-    newGameButton.create(Content.maps[2], gsm);
-    mainGrid = new Grid(6, 6, Content.maps[0]);
+    buttonStage = new GameButton("buttons");
+    switch (level) {
+      case 0: // easy game
+        mainGrid = new Grid(3, 3, Content.maps[1]);
+        buttonStage.addButton(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() / 6,
+            "New easy game", 0, gsm);
+        break;
+      case 1: // hard game
+        mainGrid = new Grid(6, 6, Content.maps[0]);
+        buttonStage.addButton(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() / 6,
+            "New hard game", 1, gsm);
+        break;
+      default: // default is medium
+        mainGrid = new Grid(6, 6, Content.maps[0]);
+        buttonStage.addButton(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() / 6,
+            "New easy game", 0, gsm);
+    }
   }
   @Override
   public void handleInput() {
@@ -101,7 +115,7 @@ public class PlayState extends State {
     }
     sb.end();
     sb.begin();
-    newGameButton.render();
+    buttonStage.render();
     sb.end();
     sb.begin();
     font.draw(sb, playingText, 90, Grid.BOARD_HEIGHT * 1.5f);

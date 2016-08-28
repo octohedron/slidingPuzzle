@@ -5,24 +5,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sexypuzzle.game.handler.Content;
 import com.sexypuzzle.game.ui.GameButton;
 public class MenuState extends State {
-  private GameButton newGameButton;
+  private GameButton buttonStage;
+  private GameButton easyButton;
   private BitmapFont welcomeFont;
-  private BitmapFont pressNewGameFont;
+  private BitmapFont difficultyMessageFont;
   private String welcomeText;
-  private String pressNewGame;
+  private String difficultyMessage;
   public MenuState(GSM gsm) {
     super(gsm);
     welcomeFont = new BitmapFont(Gdx.files.internal("Purisa.fnt"));
     welcomeFont.getData().setScale(3, 3);
-    pressNewGameFont = new BitmapFont(Gdx.files.internal("Purisa.fnt"));
-    pressNewGameFont.getData().setScale(2, 2); // little smaller
+    difficultyMessageFont = new BitmapFont(Gdx.files.internal("Purisa.fnt"));
+    difficultyMessageFont.getData().setScale(2, 2); // little smaller
     welcomeText = "Welcome to Sexy Puzzle!";
-    pressNewGame = "Press New game to start playing";
-    newGameButton =
-        new GameButton(0, 0, // starting at the bottom left
-                          Gdx.graphics.getWidth(), Gdx.graphics.getWidth() / 4, // heght
-                          "NEW GAME");
-    newGameButton.create(Content.maps[2], gsm);
+    difficultyMessage = "Select the game difficulty";
+    buttonStage = new GameButton("buttons");
+    buttonStage.addButton(0, Gdx.graphics.getHeight() / 2, // starting at the middle left
+        Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 8,
+        "Easy", 0, gsm);
+    buttonStage.addButton(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2,
+                          Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 8,
+                          "Hard", 1, gsm);
   }
   @Override
   public void handleInput() {
@@ -32,10 +35,10 @@ public class MenuState extends State {
   }
   @Override
   public void render(SpriteBatch sb) {
-    newGameButton.render();
+    buttonStage.render();
     sb.begin();
     welcomeFont.draw(sb, welcomeText, 50, Gdx.graphics.getHeight() - 400);
-    pressNewGameFont.draw(sb, pressNewGame, 90, Gdx.graphics.getHeight()/2);
+    difficultyMessageFont.draw(sb, difficultyMessage, 200, Gdx.graphics.getHeight() * 0.7f);
     sb.end();
   }
 }

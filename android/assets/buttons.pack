@@ -11,3 +11,11 @@ btn-green-up
   orig: 32, 32
   offset: 0, 0
   index: -1
+btn-blue-up
+  rotate: false
+  xy: 35, 3
+  size: 30, 30
+  split: 2, 2, 2, 2
+  orig: 30, 30
+  offset: 0, 0
+  index: -1

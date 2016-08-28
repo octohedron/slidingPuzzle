@@ -1,6 +1,5 @@
 package com.sexypuzzle.game.ui;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,47 +25,58 @@ public class GameButton extends Box {
     }
   }
   public TextureRegion btnTextureRegion;
-  public Texture btnTexture;
-  public String name;
+  public String buttonText;
   public BitmapFont font;
   private Stage stage;
+  private String map;
+  private int type;
   ButtonBonds bonds;
-  //  private Table table;
-  private TextButton newGameBtn;
-  public GameButton(float x, float y, float width, float height, String name) {
+  /**
+   * Use this constructor to set the button location and size
+   */
+  public GameButton(String map) {
+    stage = new Stage();
+    this.map = map;
+  }
+  public void addButton(float x, float y, float width, float height, String buttonText, final int type, final GSM gsm) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.name = name;
+    this.buttonText = buttonText;
+    this.type = type;
     this.font = new BitmapFont(Gdx.files.internal("Purisa.fnt"));
     this.bonds = new ButtonBonds(x, y, width, height);
-  }
-  public void create(String map, final GSM gsm) {
-    stage = new Stage();
     btnTextureRegion = SexyPuzzle.res.getAtlas(map).findRegion("buttons");
     TextButtonStyle textButtonStyle = new TextButtonStyle();
     Skin skin = new Skin(SexyPuzzle.res.getAtlas(map));
-    textButtonStyle.up = skin.getDrawable("btn-green-up");
+    switch (type) {
+      case 0:
+        textButtonStyle.up = skin.getDrawable("btn-green-up");
+        break;
+      case 1:
+        textButtonStyle.up = skin.getDrawable("btn-blue-up");
+        break;
+      default:
+        textButtonStyle.up = skin.getDrawable("btn-green-up");
+    }
+    font.getData().setScale(3, 3);
     textButtonStyle.font = font;
-    font.getData().setScale(5, 5);
-    TextButton newGameBtn = new TextButton(name, textButtonStyle);
+    TextButton textButton = new TextButton(buttonText, textButtonStyle);
     float btnPadding = 15f;
-    newGameBtn.setBounds(bonds.x, bonds.y,
+    textButton.setBounds(bonds.x, bonds.y,
         bonds.width + btnPadding,
         bonds.height + btnPadding);
-    newGameBtn.addListener(new ClickListener() {
+    System.out.println("adding listener");
+    textButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        System.out.println("Clicked the new game button");
-        PlayState state = new PlayState(gsm, 1);
+        PlayState state = new PlayState(gsm, type);
         gsm.set(state);
       }
     });
-    stage.addActor(newGameBtn);
+    stage.addActor(textButton);
     Gdx.input.setInputProcessor(stage);
-  }
-  public void addListener(final GSM gsm) {
   }
   public void render() {
     stage.draw();
