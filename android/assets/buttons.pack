@@ -5,15 +5,31 @@ filter: Nearest,Nearest
 repeat: none
 btn-green-up
   rotate: false
-  xy: 1, 1
+  xy: 1, 31
   size: 32, 32
   split: 3, 3, 3, 3
   orig: 32, 32
   offset: 0, 0
   index: -1
+btn-pink-up
+  rotate: false
+  xy: 35, 33
+  size: 30, 30
+  split: 2, 2, 2, 2
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+btn-red-up
+  rotate: false
+  xy: 35, 1
+  size: 30, 30
+  split: 2, 2, 2, 2
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
 btn-blue-up
   rotate: false
-  xy: 35, 3
+  xy: 67, 33
   size: 30, 30
   split: 2, 2, 2, 2
   orig: 30, 30

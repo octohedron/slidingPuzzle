@@ -23,7 +23,6 @@ public class Grid extends Box {
     BOARD_HEIGHT = TILE_SIZE * rows;
     BOARD_OFFSET = (SexyPuzzle.HEIGHT - BOARD_HEIGHT) / 2;
     int picNumber = 0;
-    System.out.println(map);
     for (int row = NUM_ROWS - 1; row >= 0; row--) {
       for (int col = 0; col <= NUM_COLS - 1; col++) {
         gridForSwap[row][col] = new Tile(col * TILE_SIZE + TILE_SIZE / 2,
