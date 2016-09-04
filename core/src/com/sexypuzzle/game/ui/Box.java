@@ -1,7 +1,4 @@
 package com.sexypuzzle.game.ui;
-/**
- * Created by andy on 2/26/16.
- */
 public class Box {
   public float x;
   public float y;

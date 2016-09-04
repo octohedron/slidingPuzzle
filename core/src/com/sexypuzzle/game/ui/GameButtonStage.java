@@ -65,7 +65,6 @@ public class GameButtonStage extends Box {
       default:
         textButtonStyle.up = skin.getDrawable("btn-green-up");
     }
-    System.out.println(type);
     font.getData().setScale(3, 3);
     textButtonStyle.font = font;
     TextButton textButton = new TextButton(buttonText, textButtonStyle);
